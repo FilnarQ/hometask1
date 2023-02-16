@@ -44,7 +44,11 @@ namespace Hometask1
             using (var scope = _serviceProvider.CreateScope())
             {
                 var processorService = scope.ServiceProvider.GetRequiredService<FileProcessor>();
-                Task.Run(() => processorService.ProcessFile(e.FullPath));
+                Task.Run(async () =>
+                {
+                    await processorService.ProcessFile(e.FullPath);
+                    return;
+                });
             }
         }
     }
