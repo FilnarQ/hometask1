@@ -12,11 +12,9 @@ namespace Hometask1
     class FileProcessor
     {
         ILogger<FileProcessor> _logger;
-        IServiceProvider _serviceProvider;
-        public FileProcessor(ILogger<FileProcessor> logger, IServiceProvider serviceProvider)
+        public FileProcessor(ILogger<FileProcessor> logger)
         {
             _logger = logger;
-            _serviceProvider = serviceProvider;
         }
 
         public async Task ProcessFile(string path)
@@ -24,7 +22,7 @@ namespace Hometask1
             if (!File.Exists(path)) return;
             _logger.LogInformation($"processing {path}");
             List<Transaction> list = list = await readFile(path);
-            _logger.LogInformation($"finished {path}, {list.ElementAt(0).valid}");
+            _logger.LogInformation($"finished {path}");
         }
 
         public async Task<List<Transaction>> readFile(string path)
@@ -33,13 +31,20 @@ namespace Hometask1
             List<Transaction> list = new();
             using (StreamReader sr = File.OpenText(path))
             {
-                string? s = null;
+                string s = null;
+                if (path.Substring(path.Length - 3, 3) == "csv") await sr.ReadLineAsync();
                 while ((s = await sr.ReadLineAsync()) != null)
                 {
                     list.Add(new Transaction(s));
+                    _logger.LogInformation($"{list.Last().valid}");
                 }
             }
             return list;
         }
+
+        /*public async Task<List<int>> modifyFile(List<Transaction> list)
+        {
+            
+        }*/
     }
 }
