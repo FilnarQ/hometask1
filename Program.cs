@@ -21,6 +21,7 @@ namespace Hometask1
                     services.AddHostedService<Worker>();
                     services.AddSingleton<FileWatcher>();
                     services.AddScoped<FileProcessor>();
+                    services.AddScoped<MetaLogger>();
                 });
     }
 }
