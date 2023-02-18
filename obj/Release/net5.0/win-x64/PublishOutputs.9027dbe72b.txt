@@ -1,0 +1,4 @@
+D:\Filnar\_Work\radency\Hometask1\bin\Release\net5.0\publish3\appsettings.Development.json
+D:\Filnar\_Work\radency\Hometask1\bin\Release\net5.0\publish3\appsettings.json
+D:\Filnar\_Work\radency\Hometask1\bin\Release\net5.0\publish3\Hometask1.pdb
+D:\Filnar\_Work\radency\Hometask1\bin\Release\net5.0\publish3\Hometask1.exe

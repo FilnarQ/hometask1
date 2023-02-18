@@ -35,15 +35,19 @@ namespace Hometask1
         }
         public async Task checkout(string path)
         {
-            await using (StreamWriter stream = File.CreateText(path + "\\meta.log"))
-            {
-                string data = $"parsed_files: {_files}\nparsed_lines: {_lines}\nerrors: {_errors}\ninvalid_files: [{string.Join(", ",_badFiles)}]";
-                await stream.WriteAsync(data);
-                await stream.DisposeAsync();
-            }
+            await writeLog(path);
             _files = _lines = _errors = 0;
             _badFiles.Clear();
             return;
+        }
+        public async Task writeLog(string path)
+        {
+            await using (StreamWriter stream = File.CreateText(path + "\\meta.log"))
+            {
+                string data = $"parsed_files: {_files}\nparsed_lines: {_lines}\nerrors: {_errors}\ninvalid_files: [{string.Join(", ", _badFiles)}]";
+                await stream.WriteAsync(data);
+                await stream.DisposeAsync();
+            }
         }
     }
 }

@@ -1,0 +1,32 @@
+[
+  {
+    "city": "Lviv",
+    "services": [
+      {
+        "name": "Heat",
+        "payers": [
+          {
+            "name": "Mike Wiksen",
+            "payment": 720,
+            "date": "2022-05-27T00:00:00",
+            "account_number": 7654321
+          }
+        ],
+        "total": 720
+      },
+      {
+        "name": "Gas",
+        "payers": [
+          {
+            "name": "Luke Pan ",
+            "payment": 40,
+            "date": "2022-07-12T00:00:00",
+            "account_number": 2222111
+          }
+        ],
+        "total": 40
+      }
+    ],
+    "total": 760
+  }
+]

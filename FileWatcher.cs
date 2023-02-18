@@ -14,8 +14,10 @@ namespace Hometask1
     {
         private string _folder = Path.Join(Environment.CurrentDirectory, "rawData");
         private string[] _filter = { "*.txt", "*.csv" };
-        private string outPath = Environment.CurrentDirectory + "\\" + DateTime.Now.ToString("MM-dd-yyyy");
+        private string outPath = Environment.CurrentDirectory + "\\parsedData\\" + DateTime.Now.ToString("MM-dd-yyyy");
         private int fileCounter = 1;
+        private string _input;
+        private string _output;
         FileSystemWatcher _fileSystemWatcher;
         ILogger<FileWatcher> _logger;
         IServiceProvider _serviceProvider;
@@ -24,35 +26,58 @@ namespace Hometask1
         public FileWatcher(ILogger<FileWatcher> logger, IServiceProvider serviceProvider)
         {
             _logger = logger;
+            _serviceProvider = serviceProvider;
+        }
+
+        public void Start(string input, string output)
+        {
+            _input = input;
+            _output = output;
+            _folder = Path.Combine(Environment.CurrentDirectory, _input);
+            outPath = Path.Combine(Environment.CurrentDirectory, _output) + "\\" + DateTime.Now.ToString("MM-dd-yyyy");
+
             if (!Directory.Exists(_folder)) Directory.CreateDirectory(_folder);
+            Directory.CreateDirectory(outPath);
+
             _fileSystemWatcher = new FileSystemWatcher(_folder);
             foreach (string f in _filter)
             {
                 _fileSystemWatcher.Filters.Add(f);
             }
-            _serviceProvider = serviceProvider;
-        }
-
-        public void Start()
-        {
             _fileSystemWatcher.Created += _fileSystemWatcher_Created;
-
             _fileSystemWatcher.EnableRaisingEvents = true;
             _fileSystemWatcher.IncludeSubdirectories = true;
-
             _logger.LogInformation($"watcher started");
 
-            Directory.CreateDirectory(outPath);
 
             _timer.Enabled = true;
-            _timer.Interval = /*DateTime.Today.AddDays(1).Subtract(DateTime.Now).TotalSeconds * 1000*/30000;
+            _timer.Interval = DateTime.Today.AddDays(1).Subtract(DateTime.Now).TotalSeconds * 1000;
             _timer.Elapsed += new ElapsedEventHandler(Timer_Elapsed);
             _logger.LogInformation("timer set");
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            _logger.LogInformation("tick");
+            resetWatcher();
+            resetTimer();
+        }
+
+        public void metaLog()
+        {
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var metaLogger = scope.ServiceProvider.GetRequiredService<MetaLogger>();
+                Task.Run(async () =>
+                {
+                    metaLogger.log();
+                    await metaLogger.writeLog(outPath);
+                    return;
+                });
+            }
+        }
+
+        public void resetWatcher()
+        {
             using (var scope = _serviceProvider.CreateScope())
             {
                 var metaLogger = scope.ServiceProvider.GetRequiredService<MetaLogger>();
@@ -64,11 +89,15 @@ namespace Hometask1
                 });
             }
             fileCounter = 1;
-            outPath = Path.Combine(Environment.CurrentDirectory, DateTime.Now.ToString("MM-dd-yyyy"));
+            outPath = Path.Combine(Environment.CurrentDirectory, _output) + "\\" + DateTime.Now.ToString("MM-dd-yyyy");
             Directory.CreateDirectory(outPath);
-            if (_timer.Interval != /*24 * 60 * */60 * 1000)
+        }
+
+        public void resetTimer()
+        {
+            if (_timer.Interval != 24 * 60 * 60 * 1000)
             {
-                _timer.Interval = /*24 * 60 * */60 * 1000;
+                _timer.Interval = 24 * 60 * 60 * 1000;
             }
         }
 

@@ -26,10 +26,10 @@ namespace Hometask1
             {
                 try
                 {
-                    first_name = arr[0];
-                    last_name = arr[1];
-                    address = $"{arr[2].Substring(1)},{arr[3]},{arr[4][0..^1]}";
-                    city = $"{arr[2].Substring(1)}";
+                    first_name = arr[0] ?? throw new Exception($"error in transaction from {date}");
+                    last_name = arr[1] ?? throw new Exception($"error in transaction from {date}");
+                    address = $"{arr[2].Substring(1)},{arr[3]},{arr[4][0..^1]}" ?? throw new Exception($"error in transaction from {date}");
+                    city = $"{arr[2].Substring(1)}" ?? throw new Exception($"error in transaction from {date}");
                     payment = Convert.ToDouble(arr[5], CultureInfo.InvariantCulture);
                     date = DateTime.ParseExact(arr[6], "yyyy-dd-MM", CultureInfo.InvariantCulture);
                     account_number = Convert.ToInt64(arr[7], CultureInfo.InvariantCulture);
