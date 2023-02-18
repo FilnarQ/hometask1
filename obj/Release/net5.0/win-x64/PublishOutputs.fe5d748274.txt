@@ -1,8 +1,4 @@
 D:\Filnar\_Work\radency\Hometask1\bin\Release\net5.0\publish\appsettings.Development.json
 D:\Filnar\_Work\radency\Hometask1\bin\Release\net5.0\publish\appsettings.json
 D:\Filnar\_Work\radency\Hometask1\bin\Release\net5.0\publish\Hometask1.pdb
-D:\Filnar\_Work\radency\Hometask1\bin\Release\net5.0\publish\clrcompression.dll
-D:\Filnar\_Work\radency\Hometask1\bin\Release\net5.0\publish\clrjit.dll
-D:\Filnar\_Work\radency\Hometask1\bin\Release\net5.0\publish\coreclr.dll
-D:\Filnar\_Work\radency\Hometask1\bin\Release\net5.0\publish\mscordaccore.dll
 D:\Filnar\_Work\radency\Hometask1\bin\Release\net5.0\publish\Hometask1.exe

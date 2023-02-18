@@ -43,6 +43,3 @@ D:\Filnar\_Work\radency\Hometask1\obj\Release\net5.0\Hometask1.dll
 D:\Filnar\_Work\radency\Hometask1\obj\Release\net5.0\ref\Hometask1.dll
 D:\Filnar\_Work\radency\Hometask1\obj\Release\net5.0\Hometask1.pdb
 D:\Filnar\_Work\radency\Hometask1\obj\Release\net5.0\Hometask1.genruntimeconfig.cache
-D:\Filnar\_Work\radency\Hometask1\bin\Release\net5.0\out\02-18-2023\output1.json
-D:\Filnar\_Work\radency\Hometask1\bin\Release\net5.0\out\02-18-2023\output2.json
-D:\Filnar\_Work\radency\Hometask1\bin\Release\net5.0\out\02-18-2023\output3.json
