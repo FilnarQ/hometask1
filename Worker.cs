@@ -26,10 +26,12 @@ namespace Hometask1
         {
             if (_options.Value.inputFolder == "ENTER_PATH" || _options.Value.outputFolder == "ENTER_PATH")
             {
-                Console.WriteLine("Enter paths in config file");
+                string config = "appsettings.json:\n\n{\n\t\"Logging\": {\n\t\t\"LogLevel\": {\n\t\t\t\"Default\": \"Information\",\n\t\t\t\"Microsoft\": \"Warning\",\n\t\t\t\"Microsoft.Hosting.Lifetime\": \"Warning\"\n\t\t}\n\t},\n\t\"Config\": {\n\t\t\"inputFolder\": \"ENTER_PATH\",\n\t\t\"outputFolder\": \"ENTER_PATH\"\n\t}\n}";
+                Console.WriteLine("\n\tEnter paths in 'appsettings.json'\n\tDo not use backslashes(\"\\\") in path, use / instead");
+                Console.WriteLine(config);
                 return;
             }
-            Console.WriteLine("Write reset to get meta.log and restart file watcher (next files may start overwriting previous)\nSpecify logging level and input/output path in appsettings.json\nPress CTRL+C to stop");
+            Console.WriteLine("\n\tWrite reset to get meta.log and restart file watcher\n\t(before restarting proceed to copy output files in safe place, or they may be owerwritten later)\n\tSpecify logging level and input/output path in appsettings.json\n\tPress CTRL+C to stop and exit\n");
             _watcher.Start(_options.Value.inputFolder, _options.Value.outputFolder);
             while (!stoppingToken.IsCancellationRequested)
             {

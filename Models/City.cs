@@ -14,17 +14,25 @@ namespace Hometask1
         public List<Service> services { get; set; }
         public double total { get; set; }
 
-        /*public City(IEnumerable<Transaction> list)
+        public City(IGrouping<string, Transaction> list)
         {
-            city = list.ElementAt(0).city;
+            city = (from line in list select line.city).First();
             total = (from line in list select line.payment).Sum();
-            List<Service> servicesList = new();
-            var services = (from line in list select line.service).Distinct();
-            foreach(string service in services)
+            services = new List<Service> { };
+            var byService = from line in list group line by line.service;
+            foreach(var service in byService)
             {
-                servicesList.Add(new Service(from line in list where line.service == service select line));
+                Service tempService = new Service();
+                tempService.name = (from line in service select line.service).First();
+                tempService.total = (from line in service select line.payment).Sum();
+                tempService.payers = new List<Payer> { };
+                foreach(var line in service)
+                {
+                    tempService.payers.Add(new Payer(line));
+                }
+            services.Add(tempService);
             }
-        }*/
+        }
     }
     
     public class Service
